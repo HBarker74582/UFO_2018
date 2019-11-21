@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title> UFO Madness!</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        <!--- our css -->
+        <link rel="stylesheet" type=" text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+        <!-- D3 css-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/D3style.css') }}">
+
+        <!-- Leaflet CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+            integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+            crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+            integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+            crossorigin=""></script>
+
+
+
+    </head>
+
+    <body>
+        <div class="container text-center">
+            <div id="header">
+                <h1 class="ml2">We are not alone !!!</h1>
+                <!-- <h1 class="jumbotron"> We are not alone!</h1> -->
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div>
+
+
+
+        </div>
+
+        <div class="col-md-12">
+            <h3>USA Map of Sightings and Military Bases</h3>
+            <p> United States map of sighitngs in 2018. The map details each sighting as noted by our research <br>
+                Each military base in the US is also denoted. The thought was that more sightings would be seen at or
+                near
+                military installations. <br>
+                The Dark Map provides a different view to see these sightings.
+
+            </p>
+
+            <div id="map"></div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="col-md-12">
+            <!-- <h3>USA Heat Map of Sightings</h3> -->
+            <div id="heat"></div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="col-md-12">
+            <h3>Sightings Total Vs Active Military </h3>
+            <p> This is scatter plot details each state in the Continental US with the total sightings documented. <br>
+                Colors represent whether or not that state has legalized marijuana. <br>
+                The state with the highest amount of sightings is California while the lowest is Vermont.
+            </p>
+            <div id="scatter"></div>
+
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="col-md-12">
+            <h3>UFO Count by Observed Shape </h3>
+            <p>
+                The shape or observed "UFO" is detailed in this bar chart. <br>
+                The most common observed occurrences are "light" and "object"
+            </p>
+            <div id="bar"></div>
+
+        </div>
+
+
+        <div class="container">
+            <div class="row margin-top-50">
+
+                <div class="col-md-12">
+                    <aside class="filters">
+                        <div class="panel panel-default">
+                            <p> The table below details the entire year of 2018 and their totals of active
+                                military bases, total sightings and MJ status</p>
+                            <div class="panel-heading">Search for a specific state:</div>
+                            <div class="panel-body">
+                                <form>
+                                    <div class="form-group">
+                                        <ul class="list-group" id="filters">
+                                            <li class="filter list-group-item">
+                                                <label for="state_long">Enter a state</label>
+                                                <input class="search_box" id="state_long" type="text"
+                                                    placeholder="Alabama">
+                                                <a id="search" class="btn btn-default">Search</a>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <a id="reset" class="btn btn-default">Reset Table</a>
+                                </form>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+
+
+                <div class="col-md-12">
+                    <div id="table-area" class="table-responsive">
+                        <table id="ufo-table" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="table-head">Marijuana Legal</th>
+                                    <th class="table-head">Active Military Bases Count</th>
+                                    <th class="table-head">Sightings Total</th>
+                                    <th class="table-head">State </th>
+                                    <th class="table-head">State Short</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <footer class="footer">
+            <span class="bottom">UFO Sightings</span>
+        </footer>
+
+
+
+        <!-- for d3.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+        <!-- for toop tip d3 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+        <!-- d3.js file-->
+        <script src="{{ url_for('static', filename='js/soumya.js') }}"></script>
+        <!-- new javascript libraray for animation -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+        <!-- script for animation javascript library anime.js-->
+        <script src="{{ url_for('static', filename='js/animation.js') }}"></script>
+        <!-- javascript file   -  interactive button search table -->
+        <script src="{{ url_for('static', filename='js/search_table.js') }}"></script>
+        <!-- d3.js file for analyzing word count-->
+        <script src="{{ url_for('static', filename='js/jenn.js') }}"></script>
+        <!-- Leaflet JavaScript -->
+        <script src="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
+        <!--API key-->
+        <script type="text/javascript" src="static/js/config.js"></script>
+        <!-- Our JavaScript -->
+        <script src="{{ url_for('static', filename='js/heather.js') }}"></script>
+        <!-- <script src="{{ url_for('static', filename='js/heather1.js') }}"></script> -->
+        <script src="{{ url_for('static', filename='js/leaflet-heat.js') }}"></script>
+        <!-- D3 JavaScript -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.3/d3.min.js"></script>
+
+
+
+    </body>
+
+</html>
