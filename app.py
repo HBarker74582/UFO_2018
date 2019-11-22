@@ -1,31 +1,45 @@
+###########################################
+    # DEPENDENCIES AND SETUP
+###########################################
 from flask import Flask, render_template, redirect, jsonify, request
 import os
 import requests
 import json
 import time
-
 # Import our pymongo library, which lets us connect our Flask app to our Mongo database.
 from flask_pymongo import pymongo
 import pandas as pd
+# Importing "starter.py" which is used for loading data to mongodb
 import starter
 
+##########################################
+    # FLASK SETUP
+##########################################
 # Create an instance of our Flask app.
 app = Flask(__name__)
 
-# Use flask_pymongo to set up mongo connection
+##########################################
+    # MONGO DB CONNECTION
+##########################################
+# Use flask_pymongo to set up mongo db connection
 conn = "mongodb://localhost:27017"
 client = pymongo.MongoClient(conn)
 mongo = client.UFO
 
-# DATABASE CONNECTION-MONGO DB
-# conn = "mongodb://localhost:27017"
-# client = pymongo.MongoClient(conn)
-# mongo = client.UFO
+#########################################
+    # CREATING ROUTES USING FLASK
+#########################################
 
+
+# before_first_request_function
+# Registers a function to be run before the first request to this instance of the application.
+#The function will be called without any arguments and its return value is ignored.
 @app.before_first_request
 def import_csvfile():
     starter
-    return ("success")
+    
+
+
 
 @app.route("/")
 def index():
@@ -37,8 +51,6 @@ def index():
 
     # Redirect back to home page
     return redirect("/")
-
-
 
 
 
@@ -64,6 +76,8 @@ def data():
     return jsonify(alien_data_json)
 
 time.sleep(1)
+
+
 
 @app.route("/military")
 def military():
@@ -113,6 +127,8 @@ def sightings():
 
 time.sleep(1)
 
+
+
 @app.route("/word_cloudusatotals")
 def word():
     word_collection = mongo.db.word_cloud_usatotals.find({})
@@ -126,6 +142,8 @@ def word():
     return jsonify(word_json)
 
 time.sleep(1)
+
+
 @app.route("/mapping_data")
 def data_new():
 
@@ -159,8 +177,13 @@ def data_new():
 
     return jsonify(combined_df_json_final)
 
+
+
+# Calling functions 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
 
 
 
