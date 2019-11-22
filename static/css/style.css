@@ -55,20 +55,6 @@ body {
   background-color: gray;
 } */
 
-.left {
-  padding: 50px;
-  width: 20%;
-}
-
-.right {
-  padding: 10px;
-  text-align: left;
-  width: 20%;
-}
-
-.middle {
-  width: 60%;
-}
 
 
 
@@ -83,7 +69,11 @@ body {
   font-style: inherit;
 }
 
-
+.col-md-12 {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 /*  anime.js  */
 
@@ -100,13 +90,8 @@ body {
   line-height: 1em;
 }
 #map {
-    position: relative;
+    position: center;
     width: 960px;
     height: 600px;
 }
 
-#heatmap {
-    position: relative;
-    /* width: 900px; */
-    height: 100%;
-}
