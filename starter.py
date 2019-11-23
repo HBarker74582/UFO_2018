@@ -1,3 +1,4 @@
+
 #Dependencies
 from flask_pymongo import pymongo
 import pandas as pd
@@ -9,7 +10,7 @@ def csv_import():
         conn = "mongodb://localhost:27017"
         client = pymongo.MongoClient(conn)
         mongo = client.UFO
-        
+
         mongo.db.alien_data.drop()
         mongo.db.military_bases.drop()
         mongo.db.sightings_count.drop()
